@@ -79,4 +79,12 @@ public class Hash {
     return (other instanceof Hash)
     && Arrays.equals(((Hash) other).inner, this.inner);
   } // equals(Object)
+
+  /**
+   * Returns a copy of this hash's bytes.
+   * @return A copy of this hash's bytes.
+   */
+  public byte[] getBytes() {
+    return Arrays.copyOf(this.inner, this.length());
+  } // getBytes()
 } // class Hash
