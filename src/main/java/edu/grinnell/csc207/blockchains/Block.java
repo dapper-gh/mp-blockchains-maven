@@ -119,7 +119,8 @@ class Block {
     
     try {
       MessageDigest md = MessageDigest.getInstance("sha-256");
-      return new Hash(md.digest(buf.array()));
+      md.update(buf);
+      return new Hash(md.digest());
     } catch (Exception err) {
       // This should never happen.
       return new Hash(new byte[0]);
