@@ -1,14 +1,24 @@
 package edu.grinnell.csc207.blockchains;
 
+import java.util.Arrays;
+import java.util.HexFormat;
+
 /**
  * Enccapsulated hashes.
  *
- * @author Your Name Here
+ * @author David William Stroud
+ * @author Sheilla Muligande
  */
 public class Hash {
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
+
+  /**
+   * The digest this object represents, stored as an array
+   * of bytes with no other references to it.
+   */
+  private byte[] inner;
 
   // +--------------+------------------------------------------------
   // | Constructors |
@@ -21,7 +31,7 @@ public class Hash {
    *   The data to copy into the hash.
    */
   public Hash(byte[] data) {
-    // STUB
+    this.inner = Arrays.copyOf(data, data.length);
   } // Hash(byte[])
 
   // +---------+-----------------------------------------------------
@@ -34,7 +44,7 @@ public class Hash {
    * @return the number of bytes in the hash.
    */
   int length() {
-    return 0;   // STUB
+    return this.inner.length;
   } // length()
 
   /**
@@ -47,7 +57,7 @@ public class Hash {
    * @return the ith byte
    */
   public byte get(int i) {
-    return 0;   // STUB
+    return this.inner[i];
   } // get()
 
   /**
@@ -56,7 +66,7 @@ public class Hash {
    * @return the hash as a hex string.
    */
   public String toString() {
-    return "";          // STUB
+    return HexFormat.of().formatHex(this.inner);
   } // toString()
 
   /**
@@ -66,6 +76,7 @@ public class Hash {
    *   The object to compare to.
    */
   public boolean equals(Object other) {
-    return false;       // STUB
+    return (other instanceof Hash)
+    && Arrays.equals(((Hash) other).inner, this.inner);
   } // equals(Object)
 } // class Hash
