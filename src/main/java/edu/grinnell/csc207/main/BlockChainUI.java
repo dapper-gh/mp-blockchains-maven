@@ -110,7 +110,7 @@ public class BlockChainUI {
           nonce = IOUtils.readLong(pen, eyes, "Nonce: ");
           b = new Block(
             chain.getSize(),
-            new Transaction(source, target, amount),
+              new Transaction(source, target, amount),
             chain.getHash(),
             nonce
           );

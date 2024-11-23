@@ -92,7 +92,7 @@ public class Transaction {
         this.amount);
   } // toString()
 
-  /*
+  /**
    * Get a hash code.
    *
    * @return the hash code.

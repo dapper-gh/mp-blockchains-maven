@@ -41,8 +41,8 @@ public class BlockChain implements Iterable<Transaction> {
   public BlockChain(HashValidator check) {
     this.validator = check;
     this.firstBlock = new BlockChainNode(
-      new Block(0, new Transaction("", "", 0), new Hash(new byte[] {}), validator),
-      null
+        new Block(0, new Transaction("", "", 0), new Hash(new byte[] {}), validator),
+        null
     );
     this.lastBlock = this.firstBlock;
   } // BlockChain(HashValidator)
@@ -179,7 +179,7 @@ public class BlockChain implements Iterable<Transaction> {
    */
   public void check() throws Exception {
     HashMap<String, Integer> balances = new HashMap<>();
-    
+
     Iterator<Block> iter = this.blocks();
     Block prev = null;
     while (iter.hasNext()) {

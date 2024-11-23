@@ -80,7 +80,7 @@ public class Hash {
    */
   public boolean equals(Object other) {
     return (other instanceof Hash)
-    && Arrays.equals(((Hash) other).inner, this.inner);
+      && Arrays.equals(((Hash) other).inner, this.inner);
   } // equals(Object)
 
   /**
@@ -91,7 +91,7 @@ public class Hash {
     return Arrays.copyOf(this.inner, this.length());
   } // getBytes()
 
-  /*
+  /**
    * Get the hash code of this object.
    *
    * @return the hash code.

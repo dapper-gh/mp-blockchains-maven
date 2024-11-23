@@ -2,7 +2,7 @@ package edu.grinnell.csc207.blockchains;
 
 /**
  * A single node in a linked list that represents a blockchain.
- * 
+ *
  * @author David William Stroud
  * @author Sheilla Muligande
  */
@@ -28,7 +28,7 @@ public class BlockChainNode {
 
   /**
    * Get the block that this node contains.
-   * 
+   *
    * @return The block that this node contains.
    */
   public Block getValue() {
@@ -45,7 +45,7 @@ public class BlockChainNode {
 
   /**
    * Set the next node.
-   * 
+   *
    * @param next1 The next node which we want this node to store.
    */
   public void setNext(BlockChainNode next1) {

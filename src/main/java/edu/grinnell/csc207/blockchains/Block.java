@@ -45,20 +45,20 @@ public class Block {
    * and previous hash, computing the nonce needed to
    * make the block valid.
    * @param num The index of this block in the chain.
-   * @param transaction The transaction this block contains.
-   * @param prevHash The hash of the previous block.
-   * @param validator
+   * @param transaction1 The transaction this block contains.
+   * @param prevHash1 The hash of the previous block.
+   * @param validator1
    *   The object used to determine if
    *   a hash is valid.
    */
   public Block(
-    int num,
-    Transaction transaction,
-    Hash prevHash,
-    HashValidator validator
+      int num,
+      Transaction transaction1,
+      Hash prevHash1,
+      HashValidator validator1
   ) {
-    this(num, transaction, prevHash, 0);
-    while (!validator.isValid(this.computeHash())) {
+    this(num, transaction1, prevHash1, 0);
+    while (!validator1.isValid(this.computeHash())) {
       this.nonce++;
     } // while
     this.thisHash = this.computeHash();
@@ -68,22 +68,22 @@ public class Block {
    * Create a block with the given index, transaction,
    * previous hash, and nonce.
    * @param num The index of this block in the chain.
-   * @param transaction The transaction this block contains.
-   * @param prevHash The hash of the previous block.
-   * @param nonce The nonce to use in this block.
+   * @param transaction1 The transaction this block contains.
+   * @param prevHash1 The hash of the previous block.
+   * @param nonce1 The nonce to use in this block.
    */
   public Block(
-    int num,
-    Transaction transaction,
-    Hash prevHash,
-    long nonce
-    ) {
-      this.number = num;
-      this.transaction = transaction;
-      this.prevHash = prevHash;
-      this.nonce = nonce;
+      int num,
+      Transaction transaction1,
+      Hash prevHash1,
+      long nonce1
+  ) {
+    this.number = num;
+    this.transaction = transaction1;
+    this.prevHash = prevHash1;
+    this.nonce = nonce1;
 
-      this.thisHash = this.computeHash();
+    this.thisHash = this.computeHash();
   } // Block(int, Transaction, Hash, long)
 
   // +---------+-----------------------------------------------------
@@ -91,38 +91,39 @@ public class Block {
   // +---------+
 
   /**
-   * Compute the hash of the block givlength() > 1en all the other info already
-   * stored in the block.
+   * Compute the hash of this block anew.
+   *
+   * @return The hash of this block.
    */
   public Hash computeHash() {
     try {
       MessageDigest md = MessageDigest.getInstance("sha-256");
       md.update(
-        ByteBuffer
-          .allocate(Integer.BYTES)
-          .putInt(this.getNum())
-          .array()
+          ByteBuffer
+              .allocate(Integer.BYTES)
+              .putInt(this.getNum())
+              .array()
       );
       md.update(
-        this.getTransaction().getSource().getBytes()
+          this.getTransaction().getSource().getBytes()
       );
       md.update(
-        this.getTransaction().getTarget().getBytes()
+          this.getTransaction().getTarget().getBytes()
       );
       md.update(
-        ByteBuffer
-          .allocate(Integer.BYTES)
-          .putInt(this.getTransaction().getAmount())
-          .array()
+          ByteBuffer
+              .allocate(Integer.BYTES)
+              .putInt(this.getTransaction().getAmount())
+              .array()
       );
       md.update(
-        this.getPrevHash().getBytes()
+          this.getPrevHash().getBytes()
       );
       md.update(
-        ByteBuffer
-          .allocate(Long.BYTES)
-          .putLong(this.getNonce())
-          .array()
+          ByteBuffer
+              .allocate(Long.BYTES)
+              .putLong(this.getNonce())
+              .array()
       );
       return new Hash(md.digest());
     } catch (Exception err) {
@@ -187,8 +188,8 @@ public class Block {
    */
   public String toString() {
     return String.format(
-      "Block %d (Transaction: %s, " +
-      "Nonce: %d, "
+      "Block %d (Transaction: %s, "
+      + "Nonce: %d, "
       + "prevHash: %s, hash: %s)",
       this.getNum(),
       this.getTransaction().toString(),
