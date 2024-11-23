@@ -1,7 +1,5 @@
 package edu.grinnell.csc207.blockchains;
 
-import java.nio.ByteBuffer;
-
 /**
  * A simple transaction.
  *
@@ -93,22 +91,6 @@ public class Transaction {
         this.target,
         this.amount);
   } // toString()
-
-  /**
-   * Returns this transaction as an array of bytes.
-   * @return Bytes that represent this transaction.
-   */
-  public byte[] getBytes() {
-    return ByteBuffer.allocate(
-      this.getSource().getBytes().length
-      + this.getTarget().getBytes().length
-      + Integer.BYTES
-    )
-      .put(this.getSource().getBytes())
-      .put(this.getTarget().getBytes())
-      .putInt(this.getAmount())
-      .array();
-  } // getBytes()
 
   /*
    * Get a hash code.

@@ -101,25 +101,29 @@ public class Block {
    * stored in the block.
    */
   Hash computeHash() {
-    byte[] txBytes = this.getTransaction().getBytes();
-    ByteBuffer buf = ByteBuffer.allocate(
-      Integer.BYTES
-      + txBytes.length
-      + (this.getPrevHash() == null
-          ? 0
-          : this.getPrevHash().length())
-      + Long.BYTES
-    )
-      .putInt(this.getNum())
-      .put(txBytes);
-    if (this.getPrevHash() != null) {
-      buf.put(this.getPrevHash().getBytes());
-    } // if
-    buf.putLong(this.nonce);
-    
     try {
       MessageDigest md = MessageDigest.getInstance("sha-256");
-      md.update(buf);
+      md.update(
+        ByteBuffer.allocate(Integer.BYTES).putInt(this.getNum())
+      );
+      md.update(
+        this.getTransaction().getSource().getBytes()
+      );
+      md.update(
+        this.getTransaction().getTarget().getBytes()
+      );
+      md.update(
+        ByteBuffer
+          .allocate(Integer.BYTES)
+          .putInt(this.getTransaction().getAmount()
+        )
+      );
+      md.update(
+        this.getPrevHash().getBytes()
+      );
+      md.update(
+        ByteBuffer.allocate(Long.BYTES).putLong(this.getNonce())
+      );
       return new Hash(md.digest());
     } catch (Exception err) {
       // This should never happen.
