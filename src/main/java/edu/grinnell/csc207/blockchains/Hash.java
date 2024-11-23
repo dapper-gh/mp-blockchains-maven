@@ -4,10 +4,15 @@ import java.util.Arrays;
 import java.util.HexFormat;
 
 /**
- * Enccapsulated hashes.
+ * Encapsulated hashes.
  *
+<<<<<<< HEAD
  * @author David William Stroud
  * @author Sheilla Muligande
+=======
+ * @author Your Name Here
+ * @author Samuel A. Rebelsky
+>>>>>>> upstream/main
  */
 public class Hash {
   // +--------+------------------------------------------------------
@@ -43,7 +48,7 @@ public class Hash {
    *
    * @return the number of bytes in the hash.
    */
-  int length() {
+  public int length() {
     return this.inner.length;
   } // length()
 
@@ -74,6 +79,9 @@ public class Hash {
    *
    * @param other
    *   The object to compare to.
+   *
+   * @return true if the two objects are conceptually equal and false
+   *   otherwise.
    */
   public boolean equals(Object other) {
     return (other instanceof Hash)
@@ -87,4 +95,13 @@ public class Hash {
   public byte[] getBytes() {
     return Arrays.copyOf(this.inner, this.length());
   } // getBytes()
+
+  /*
+   * Get the hash code of this object.
+   *
+   * @return the hash code.
+   */
+  public int hashCode() {
+    return this.toString().hashCode();
+  } // hashCode()
 } // class Hash

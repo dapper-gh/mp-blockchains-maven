@@ -11,6 +11,8 @@ public interface HashValidator {
    *
    * @param hash
    *   The hash we're checking.
+   *
+   * @return true if the hash is valid and false otehrwise.
    */
   boolean isValid(Hash hash);
 

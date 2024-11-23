@@ -10,7 +10,7 @@ import java.security.MessageDigest;
  * @author Sheilla Muligande
  * @author Samuel A. Rebelsky
  */
-class Block {
+public class Block {
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
@@ -22,7 +22,7 @@ class Block {
   /**
    * The transaction that this block contains.
    */
-  private Transaction tx;
+  Transaction tx;
   /**
    * The hash of the previous block in the chain.
    */
@@ -30,7 +30,7 @@ class Block {
   /**
    * The value required to make thisHash valid.
    */
-  private long nonce;
+  long nonce;
   /**
    * The hash of this block.
    */
@@ -136,7 +136,7 @@ class Block {
    *
    * @return the number of the block.
    */
-  int getNum() {
+  public int getNum() {
     return this.number;
   } // getNum()
 
@@ -145,7 +145,7 @@ class Block {
    *
    * @return the transaction.
    */
-  Transaction getTransaction() {
+  public Transaction getTransaction() {
     return this.tx;
   } // getTransaction()
 
@@ -154,7 +154,7 @@ class Block {
    *
    * @return the nonce.
    */
-  long getNonce() {
+  public long getNonce() {
     return this.nonce;
   } // getNonce()
 
