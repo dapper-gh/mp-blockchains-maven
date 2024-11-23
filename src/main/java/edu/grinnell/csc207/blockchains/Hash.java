@@ -6,13 +6,8 @@ import java.util.HexFormat;
 /**
  * Encapsulated hashes.
  *
-<<<<<<< HEAD
  * @author David William Stroud
  * @author Sheilla Muligande
-=======
- * @author Your Name Here
- * @author Samuel A. Rebelsky
->>>>>>> upstream/main
  */
 public class Hash {
   // +--------+------------------------------------------------------
@@ -71,7 +66,7 @@ public class Hash {
    * @return the hash as a hex string.
    */
   public String toString() {
-    return HexFormat.of().formatHex(this.inner);
+    return HexFormat.of().withUpperCase().formatHex(this.inner);
   } // toString()
 
   /**

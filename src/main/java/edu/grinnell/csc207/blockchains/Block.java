@@ -22,7 +22,7 @@ public class Block {
   /**
    * The transaction that this block contains.
    */
-  Transaction tx;
+  Transaction transaction;
   /**
    * The hash of the previous block in the chain.
    */
@@ -57,17 +57,11 @@ public class Block {
     Hash prevHash,
     HashValidator validator
   ) {
-    Block candidate;
-    long nonce = 0;
-    do {
-      candidate = new Block(
-        num,
-        transaction,
-        prevHash,
-        nonce
-      );
-      nonce++;
-    } while (!validator.isValid(candidate.getHash()));
+    this(num, transaction, prevHash, 0);
+    while (!validator.isValid(this.computeHash())) {
+      this.nonce++;
+    } // while
+    this.thisHash = this.computeHash();
   } // Block(int, Transaction, Hash)
 
   /**
@@ -85,7 +79,7 @@ public class Block {
     long nonce
     ) {
       this.number = num;
-      this.tx = transaction;
+      this.transaction = transaction;
       this.prevHash = prevHash;
       this.nonce = nonce;
 
@@ -97,14 +91,17 @@ public class Block {
   // +---------+
 
   /**
-   * Compute the hash of the block given all the other info already
+   * Compute the hash of the block givlength() > 1en all the other info already
    * stored in the block.
    */
-  Hash computeHash() {
+  public Hash computeHash() {
     try {
       MessageDigest md = MessageDigest.getInstance("sha-256");
       md.update(
-        ByteBuffer.allocate(Integer.BYTES).putInt(this.getNum())
+        ByteBuffer
+          .allocate(Integer.BYTES)
+          .putInt(this.getNum())
+          .array()
       );
       md.update(
         this.getTransaction().getSource().getBytes()
@@ -115,14 +112,17 @@ public class Block {
       md.update(
         ByteBuffer
           .allocate(Integer.BYTES)
-          .putInt(this.getTransaction().getAmount()
-        )
+          .putInt(this.getTransaction().getAmount())
+          .array()
       );
       md.update(
         this.getPrevHash().getBytes()
       );
       md.update(
-        ByteBuffer.allocate(Long.BYTES).putLong(this.getNonce())
+        ByteBuffer
+          .allocate(Long.BYTES)
+          .putLong(this.getNonce())
+          .array()
       );
       return new Hash(md.digest());
     } catch (Exception err) {
@@ -150,7 +150,7 @@ public class Block {
    * @return the transaction.
    */
   public Transaction getTransaction() {
-    return this.tx;
+    return this.transaction;
   } // getTransaction()
 
   /**
@@ -187,14 +187,11 @@ public class Block {
    */
   public String toString() {
     return String.format(
-      "Block %d (Transaction: " +
-      "[Source: %s, Target %s," +
-      " Amount: %d], Nonce: %d, "
+      "Block %d (Transaction: %s, " +
+      "Nonce: %d, "
       + "prevHash: %s, hash: %s)",
       this.getNum(),
-      this.getTransaction().getSource(),
-      this.getTransaction().getTarget(),
-      this.getTransaction().getAmount(),
+      this.getTransaction().toString(),
       this.getNonce(),
       this.getPrevHash().toString(),
       this.getHash().toString()
