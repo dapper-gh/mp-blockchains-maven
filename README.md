@@ -8,9 +8,7 @@ Authors
 * Sheilla Muligande.
 * Samuel A. Rebelsky (starter code)
 
-Acknowledgements
-
-* _Forthcoming_.
+Acknowledgements: None.
 
 This code may be found at <https://github.com/dapper-gh/mp-blockchains-maven/tree/main>.
 The original code may be found at <https://github.com/Grinnell-CSC207/mp-blockchinas-maven>.
